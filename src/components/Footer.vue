@@ -1,40 +1,74 @@
 <template>
     <div>
-        <v-text-field
-            label="제목"
-            v-model="title"
-        ></v-text-field>
-        <v-text-field
-            label="내용"
-            v-model="content"
-        ></v-text-field>
-        <v-btn @click="add">추가</v-btn>
+        제목 : <input v-model="title">
+        내용 : <input v-model="content">
+        <v-btn @click="insertData" v-show="detailIndex === null">추가</v-btn>
+        <v-btn @click="updateData" v-show="detailIndex !== null">수정</v-btn>
+        <v-btn @click="deleteData" v-show="detailIndex !== null">삭제</v-btn>
+        <v-btn @click="cancle" v-show="detailIndex !== null">취소</v-btn>
     </div>
 </template>
 
 <script>
-import read_data from '../data/read_data.js'
-
 export default {
+    props: {
+        dataOfChild : Array,
+        activeItem : Number
+    },
     data() {
         return {
-            data: read_data,
+            data: this.dataOfChild,
             title: "",
-            content: ""
+            content: "",
+            detailIndex: null
         }
     },
     methods: {
-        add() {
-            if(this.title !== "" && this.content !== "") {
-                this.data.unshift({
+        insertData() {
+            if(this.title === "" || this.content === "") {
+                alert('제목 또는 내용이 누락되었습니다.')
+                return false
+            }
+            this.data.unshift({
                     title: this.title,
                     content: this.content
                 })
                 this.title = ''
                 this.content = ''
-            } else {
-                alert('제목 또는 내용이 누락되었습니다.')
+        },
+        deleteData() {
+            this.data.splice(this.detailIndex, 1)
+            this.title = ''
+            this.content = ''
+            this.detailIndex = null
+            this.$emit("revertToActive", null)
+        },
+        updateData() {
+            this.data.splice(this.detailIndex, 1 ,{
+                title: this.title,
+                content: this.content
+            })
+            this.title = ''
+            this.content = ''
+            this.detailIndex = null
+            this.$emit("revertToActive", null)
+            console.log(this.activeItem)
+        },
+        cancle() {
+            this.title = ''
+            this.content = ''
+            this.detailIndex = null
+        }
+    },
+    watch: {
+        activeItem: function() {
+            if(this.activeItem === null) {
+                return false
             }
+            console.log(this.activeItem)
+            this.detailIndex = this.activeItem
+            this.title = this.dataOfChild[this.detailIndex].title
+            this.content = this.dataOfChild[this.detailIndex].content
         }
     }
 }

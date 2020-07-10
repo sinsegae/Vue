@@ -11,7 +11,7 @@
                 <th>내용</th>
             </thead>
             <tbody style="text-align:center">
-                <tr v-for="(value, index) in data" :key="index">
+                <tr v-for="(value, index) in dataOfChild" :key="index" @click="activeToItem(index)">
                     <td>{{ value.title }}</td>
                     <td>{{ value.content }}</td>
                 </tr>
@@ -21,12 +21,16 @@
 </template>
 
 <script>
-import read_data from '../data/read_data.js'
-
 export default {
+    props: ['dataOfChild', 'changeToActive'],
     data() {
         return {
-            data: read_data
+
+        }
+    },
+    methods: {
+        activeToItem(index) {
+            this.$emit("changeToActive", index)
         }
     }
 }
