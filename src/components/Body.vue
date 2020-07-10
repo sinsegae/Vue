@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>List</h2>
+        <h2>List</h2><input v-model="title">
         <table style="width:100%">
             <colgroup>
                 <col width="20%">
@@ -11,9 +11,9 @@
                 <th>내용</th>
             </thead>
             <tbody style="text-align:center">
-                <tr v-for="(value, index) in dataOfChild" :key="index" @click="activeToItem(index)">
-                    <td>{{ value.title }}</td>
-                    <td>{{ value.content }}</td>
+                <tr v-for="(value, index) in dataOfChild" :key="index" @click="activeToItem(index)" v-show="value.title.includes(title)">
+                        <td >{{ value.title }}</td>
+                        <td>{{ value.content }}</td>
                 </tr>
             </tbody>
         </table>
@@ -25,7 +25,7 @@ export default {
     props: ['dataOfChild', 'changeToActive'],
     data() {
         return {
-
+            title: ""
         }
     },
     methods: {
