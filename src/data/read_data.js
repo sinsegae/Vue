@@ -1,14 +1,14 @@
 export default [
     {
-        title: '제목1',
+        title: '1',
         content : '내용1'
     },
     {
-        title: '제목2',
+        title: '12',
         content : '내용2'
     },
     {
-        title: '제목3',
+        title: '123',
         content : '내용3'
     }
 ]

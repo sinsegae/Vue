@@ -1,12 +1,6 @@
 <template>
     <div>
-        <h2>List</h2>
-        <select v-model="select">
-            <option disabled value="">--선택--</option>
-            <option>제목</option>
-            <option>내용</option>
-        </select>
-        <input v-on:input="search" :value="keyword">
+        <h2>List</h2><input v-model="title">
         <table style="width:100%">
             <colgroup>
                 <col width="20%">
@@ -17,9 +11,7 @@
                 <th>내용</th>
             </thead>
             <tbody style="text-align:center">
-                <tr v-for="(value, index) in dataOfChild" :key="index" 
-                @click="activeToItem(index)" 
-                v-show="select==='제목' ? value.title.includes(keyword) : value.content.includes(keyword)">
+                <tr v-for="(value, index) in dataOfChild" :key="index" @click="activeToItem(index)" v-show="value.title.includes(title)">
                         <td >{{ value.title }}</td>
                         <td>{{ value.content }}</td>
                 </tr>
@@ -33,17 +25,13 @@ export default {
     props: ['dataOfChild', 'changeToActive'],
     data() {
         return {
-            keyword: "",
-            select: ""
+            title: ""
         }
     },
     methods: {
         activeToItem(index) {
             this.$emit("changeToActive", index)
-        },
-        search: function(e) {
-            this.keyword = e.target.value
         }
     }
 }
-</script>`
+</script>
