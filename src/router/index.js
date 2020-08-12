@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Board from '../components/Board.vue'
+import Practice from '../components/practice.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ Vue.use(VueRouter)
     path: '/board',
     name: 'Board',
     component: Board
+  },
+  {
+    path: '/practice',
+    name: 'practice',
+    component: Practice
   }
 ]
 
