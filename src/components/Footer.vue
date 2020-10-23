@@ -6,11 +6,6 @@
         <v-btn @click="updateData" v-show="detailIndex !== null">수정</v-btn>
         <v-btn @click="deleteData" v-show="detailIndex !== null">삭제</v-btn>
         <v-btn @click="cancle" v-show="detailIndex !== null">취소</v-btn>
-        <br><br>
-        <input type="radio" name="test" v-model="searchInfo.resultCode" id="All" value="All"><label for="All">all</label>
-        <input type="radio" name="test" v-model="searchInfo.resultCode" id="Y" value="Y"><label for="Y">Y</label>
-        <input type="radio" name="test" v-model="searchInfo.resultCode" id="N" value="N"><label for="N">N</label>
-        <input type="text" placeholder="아아아아테스트" v-model="searchInfo.requestCode" :disabled="searchInfo.resultCode != 'N'">
     </div>
 </template>
 
@@ -68,12 +63,6 @@ export default {
         }
     },
     watch: {
-        "searchInfo.resultCode"(newVal){
-            if(newVal != 'N'){
-                console.log('ㅎㅇ');
-                this.searchInfo.requestCode = '';
-            }
-        },
         activeItem: function() {
             if(this.activeItem === null) {
                 return false
